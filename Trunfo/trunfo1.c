@@ -63,7 +63,7 @@ void print_carta(void)
     printf("Código da carta: %3s\n", codigo_carta);
     printf("Cidade: %s\n", cidade);
     printf("População: %d\n", populacao);
-    printf("Área: %f\n", area);
-    printf("PIB: %f\n", pib);
+    printf("Área: %.2f\n", area);
+    printf("PIB: %.2f\n", pib);
     printf("Pontos turísticos: %d\n", pt_turisticos);
 }
