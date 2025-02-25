@@ -18,4 +18,10 @@ int main()
     printf("Digite o número da sua matrícula: ");
     scanf("%d", &matricula);
 
-}   
+    printf("\n");
+
+    printf("Idade: %d anos \n", idade);
+    printf("Sua altura: %.2f \n", altura);
+    printf("Seu nome: %s \n", nome);
+    printf("Sua matrícula: %d \n", matricula);
+}
