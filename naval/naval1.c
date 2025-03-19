@@ -1,9 +1,10 @@
 #include <stdio.h>
 
-int print_board(void);
+int print_board(void); // funcao de imprimir tabuleiro
 
-const int BOARD_SIZE = 11;
+const int BOARD_SIZE = 11; // constante do tamanho do tabuleiro
 
+// Array do tabuleiro
 char *tabuleiro[11][11] = {
     {"  ", " A", " B", " C", " D", " E", " F", " G", " H", " I", " J\n"},
     {" 1", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0\n"},
@@ -17,21 +18,22 @@ char *tabuleiro[11][11] = {
     {" 9", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0\n"},
     {"10", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0\n"}};
 
-
+// arrays dos navios
 char *navio1[3] = {" 3", " 3", " 3"};
 char *navio2[3] = {" 3", " 3", " 3"};
 
 int main(void)
 {
-    printf("\n---=== BATALHA NAVAL ===---\n\n");
-    print_board();
+    
+    printf("\n---=== BATALHA NAVAL ===---\n\n"); // imprime cabecalho
+    print_board(); // imprime tabuleiro
 
-    int action;
-    printf("\nDigite 1 para posicionar os navios: ");
+    int action;  
+    printf("\nDigite 1 para posicionar os navios: "); // menu para iniciar
     printf("\n");
     scanf("%i", &action);
 
-    switch (action)
+    switch (action)   // switch para evitar input invalido
     {
     case 1:
     {
@@ -53,7 +55,7 @@ int main(void)
     }
 }
 
-int print_board(void)
+int print_board(void) // funcao imprimir tabuleiro
 {
     for (int i = 0; i < BOARD_SIZE; i++)
     {
