@@ -7,6 +7,7 @@ const int BOARD_SIZE = 11; // constante do tamanho do tabuleiro
 
 // Array do tabuleiro
 char *tabuleiro[11][11];
+char letras[11];
 
 // arrays dos navios
 char *navio1[3] = {" 3", " 3", " 3"};
@@ -14,6 +15,7 @@ char *navio2[3] = {" 3", " 3", " 3"};
 
 int main(void)
 {
+   
     setup_board();
 
     printf("\n---=== BATALHA NAVAL ===---\n\n"); // imprime cabecalho
@@ -49,41 +51,39 @@ int setup_board(void)
 {
     for (int i = 0; i < BOARD_SIZE; i++)
     {
+        letras[1 + i] = 'A' + i;
         for (int j = 0; j < BOARD_SIZE; j++)
         {
             tabuleiro[i][j] = " 0";
         }
     }
-    // Coordenadas horizontais
-    tabuleiro[0][0] = "  ";
-    tabuleiro[0][1] = " A";
-    tabuleiro[0][2] = " B";
-    tabuleiro[0][3] = " C";
-    tabuleiro[0][4] = " D";
-    tabuleiro[0][5] = " E";
-    tabuleiro[0][6] = " F";
-    tabuleiro[0][7] = " G";
-    tabuleiro[0][8] = " H";
-    tabuleiro[0][9] = " I";
-    tabuleiro[0][10] = " J";
+    letras[0] = 32;
 
     // Coordenadas verticais
-    tabuleiro[1][0] = " 1";
-    tabuleiro[2][0] = " 2";
-    tabuleiro[3][0] = " 3";
-    tabuleiro[4][0] = " 4";
-    tabuleiro[5][0] = " 5";
-    tabuleiro[6][0] = " 6";
-    tabuleiro[7][0] = " 7";
-    tabuleiro[8][0] = " 8";
-    tabuleiro[9][0] = " 9";
-    tabuleiro[10][0] = "10";
+    tabuleiro[0][0] = " 1";
+    tabuleiro[1][0] = " 2";
+    tabuleiro[2][0] = " 3";
+    tabuleiro[3][0] = " 4";
+    tabuleiro[4][0] = " 5";
+    tabuleiro[5][0] = " 6";
+    tabuleiro[6][0] = " 7";
+    tabuleiro[7][0] = " 8";
+    tabuleiro[8][0] = " 9";
+    tabuleiro[9][0] = "10";
 }
 int print_board(void) // funcao imprimir tabuleiro
 {
-
+    // Coordenadas horizontais 
     for (int i = 0; i < BOARD_SIZE; i++)
     {
+        printf(" %c", letras[i]);
+    }
+    printf("\n");
+
+    // Tabuleiro
+    for (int i = 0; i < (BOARD_SIZE - 1); i++)
+    {
+
         for (int j = 0; j < BOARD_SIZE; j++)
         {
             printf("%s", tabuleiro[i][j]);
