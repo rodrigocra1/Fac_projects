@@ -3,10 +3,10 @@
 int setup_board(void); // funcao que cria o tabuleiro
 int print_board(void); // funcao de imprimir tabuleiro
 
-const int BOARD_SIZE = 11; // constante do tamanho do tabuleiro
+const int BOARD_SIZE = 10; // constante do tamanho do tabuleiro
 
 // Array do tabuleiro
-char *tabuleiro[11][11];
+char *tabuleiro[10][10];
 char letras[11];
 
 // arrays dos navios
@@ -59,37 +59,36 @@ int setup_board(void)
     }
     letras[0] = 32;
 
-    // Coordenadas verticais
-    tabuleiro[0][0] = " 1";
-    tabuleiro[1][0] = " 2";
-    tabuleiro[2][0] = " 3";
-    tabuleiro[3][0] = " 4";
-    tabuleiro[4][0] = " 5";
-    tabuleiro[5][0] = " 6";
-    tabuleiro[6][0] = " 7";
-    tabuleiro[7][0] = " 8";
-    tabuleiro[8][0] = " 9";
-    tabuleiro[9][0] = "10";
 }
 int print_board(void) // funcao imprimir tabuleiro
 {
     // Coordenadas horizontais 
-    for (int i = 0; i < BOARD_SIZE; i++)
+    for (int i = 0; i < BOARD_SIZE + 1; i++)
     {
         printf(" %c", letras[i]);
     }
     printf("\n");
 
-    // Tabuleiro
+    // Tabuleiro e Coord. verticais
+    int number[10];
     for (int i = 0; i < (BOARD_SIZE - 1); i++)
-    {
-
+    {  
+        number[i] = i + 1;
+        printf(" %i", number[i]);
+        
         for (int j = 0; j < BOARD_SIZE; j++)
         {
             printf("%s", tabuleiro[i][j]);
         }
         printf("\n");
     }
+    // Imprimir última linha (para alinhamento perfeito)
+    printf("10");
+    for (int i = 0; i < BOARD_SIZE; i++)
+    {  
+        printf("%s", tabuleiro[9][i]);
+    }
+    printf("\n");
 }
 
 // {
