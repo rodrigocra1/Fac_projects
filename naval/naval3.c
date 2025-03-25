@@ -1,10 +1,12 @@
 #include <stdio.h>
+#include <ctype.h>
 
-int setup_// constante do tamanho do tabuleiro
 
 // Array do tabuleiro
-char *tabuleiro[10][10];board(void); // funcao que cria o tabuleiro
+char *tabuleiro[10][10];
+int setup_board(void); // funcao que cria o tabuleiroboard(void); // funcao que cria o tabuleiro
 int print_board(void); // funcao de imprimir tabuleiro
+int hability_cone(void); // habilidade do cone
 
 const int BOARD_SIZE = 10; 
 char letras[11];
@@ -54,7 +56,28 @@ int main(void)
         break;
     }
     }
+
+    int menu_habilidade;
+    printf("Digite o número correspondete a habilidade que voçê quer utilizar:\n");
+    printf("1. Cone\n");
+    printf("2. Cruza\n");
+    printf("3. Octaedro\n");
+    scanf("%d", &menu_habilidade);
+
+    switch (menu_habilidade)
+    {
+        case 1:
+        {
+            hability_cone();
+            print_board();
+        break;
+        }
+    }
 }
+
+
+
+
 int setup_board(void)
 {
     for (int i = 0; i < BOARD_SIZE; i++)
@@ -98,16 +121,37 @@ int print_board(void) // funcao imprimir tabuleiro
     }
     printf("\n");
 }
+int hability_cone(void)
+{
+    char *cone = " 5";
+    int input_i;
+    char input_j;
+    
+    printf("Digite as coordenadas da habilidade:\nLetra (A-J): ");
+    scanf(" %c", &input_j);
+    printf("Número (1-10): ");
+    scanf("%i", &input_i);
+    
+     // converte input_j para maiuscula
+     input_j = toupper(input_j) - 'A'; // converte letras em numeros
+     input_i -= 1; // converte 1-10 para 0-9
 
-// {
-//     {"  ", " A", " B", " C", " D", " E", " F", " G", " H", " I", " J\n"},
-//     {" 1", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0\n"},
-//     {" 2", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0\n"},
-//     {" 3", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0\n"},
-//     {" 4", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0\n"},
-//     {" 5", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0\n"},
-//     {" 6", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0\n"},
-//     {" 7", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0\n"},
-//     {" 8", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0\n"},
-//     {" 9", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0\n"},
-//     {"10", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0", " 0\n"}};
+     if (input_i < 0 || input_i >= BOARD_SIZE || input_j < 0 || input_j >= BOARD_SIZE) // garantir que o input esteja nos limites do tabuleiro
+    {
+        printf("Coordenadas inválidas!\n");
+        return -1;
+    }
+    
+    for (int i = input_i; i < BOARD_SIZE; i++) 
+    {
+        int left = input_j - (i - input_i);  
+        int right = input_j + (i - input_i); 
+
+        if (left >= 0) 
+            tabuleiro[i][left] = cone;
+
+        if (right < BOARD_SIZE) 
+            tabuleiro[i][right] = cone;
+    }
+    return 0;
+}
