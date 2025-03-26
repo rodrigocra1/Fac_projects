@@ -7,6 +7,9 @@ char *tabuleiro[10][10];
 int setup_board(void); // funcao que cria o tabuleiroboard(void); // funcao que cria o tabuleiro
 int print_board(void); // funcao de imprimir tabuleiro
 int hability_cone(void); // habilidade do cone
+int hability_cruz(void); // habilidade da cruz
+int hability_octa(void); // habilidade do octaedro
+
 
 const int BOARD_SIZE = 10; 
 char letras[11];
@@ -47,24 +50,25 @@ int main(void)
         }
 
         print_board();
+        printf("\n");
         break;
     }
 
-    default:
+    default: // impede input invalido
     {
         printf("Você deve digitar 1 para continuar.");
         break;
     }
     }
 
-    int menu_habilidade;
-    printf("Digite o número correspondete a habilidade que voçê quer utilizar:\n");
+    int menu_habilidade; // menu de seleção de habilidades
+    printf("\nDigite o número correspondete a habilidade que voçê quer utilizar:\n");
     printf("1. Cone\n");
-    printf("2. Cruza\n");
+    printf("2. Cruz\n");
     printf("3. Octaedro\n");
     scanf("%d", &menu_habilidade);
 
-    switch (menu_habilidade)
+    switch (menu_habilidade) // cases das habilidades
     {
         case 1:
         {
@@ -72,13 +76,33 @@ int main(void)
             print_board();
         break;
         }
+
+        case 2:
+        {
+            hability_cruz();\
+            print_board();
+            break;
+        }
+
+        case 3:
+        {
+            hability_octa();
+            print_board();
+            break;
+        }
+
+        default: // impede input invalido
+        {
+            printf("Entrada inválida!\n");
+            break;
+        }
     }
 }
 
 
 
 
-int setup_board(void)
+int setup_board(void) // funcao que constroi o tabuleiro
 {
     for (int i = 0; i < BOARD_SIZE; i++)
     {
@@ -121,9 +145,10 @@ int print_board(void) // funcao imprimir tabuleiro
     }
     printf("\n");
 }
-int hability_cone(void)
+
+int hability_cone(void) // funcao da habilidade do cone
 {
-    char *cone = " 5";
+    char *cone = " 5"; // define o numero 5 como apresentacao da habilidade no tabuleiro
     int input_i;
     char input_j;
     
@@ -131,6 +156,7 @@ int hability_cone(void)
     scanf(" %c", &input_j);
     printf("Número (1-10): ");
     scanf("%i", &input_i);
+    printf("\n");
     
      // converte input_j para maiuscula
      input_j = toupper(input_j) - 'A'; // converte letras em numeros
@@ -141,17 +167,99 @@ int hability_cone(void)
         printf("Coordenadas inválidas!\n");
         return -1;
     }
-    
-    for (int i = input_i; i < BOARD_SIZE; i++) 
+
+    if (input_i < 2 || input_i > 9 || input_j < 'C' || input_j > 'H') // avisa que o input ultrapassou as bordas
     {
-        int left = input_j - (i - input_i);  
-        int right = input_j + (i - input_i); 
+        printf("Efeito ultrapassa as bordas do tabuleiro, será apresentado na borda oposta.\n");
+    }
 
-        if (left >= 0) 
-            tabuleiro[i][left] = cone;
-
-        if (right < BOARD_SIZE) 
-            tabuleiro[i][right] = cone;
+    
+    for (int i = input_i; i < BOARD_SIZE && i < input_i + 3; i++) // monta a habilidade que será impressa
+    {
+        tabuleiro[input_i][input_j] = cone;
+        tabuleiro[input_i + 1][input_j] = cone;
+        tabuleiro[input_i + 1][input_j + 1] = cone;
+        tabuleiro[input_i + 1][input_j - 1] = cone;
+        tabuleiro[input_i + 2][input_j] = cone;
+        tabuleiro[input_i + 2][input_j + 1] = cone;
+        tabuleiro[input_i + 2][input_j + 2] = cone;
+        tabuleiro[input_i + 2][input_j - 1] = cone;
+        tabuleiro[input_i + 2][input_j - 2] = cone;
     }
     return 0;
+}
+int hability_cruz(void)
+{
+    char *cruz = " 5";
+    int input_i;
+    char input_j;
+    
+    printf("Digite as coordenadas da habilidade:\nLetra (A-J): ");
+    scanf(" %c", &input_j);
+    printf("Número (1-10): ");
+    scanf("%i", &input_i);
+    printf("\n");
+
+    // converte input_j para maiuscula
+    input_j = toupper(input_j) - 'A'; // converte letras em numeros
+    input_i -= 1; // converte 1-10 para 0-9
+
+    if (input_i < 0 || input_i >= BOARD_SIZE || input_j < 0 || input_j >= BOARD_SIZE) // garantir que o input esteja nos limites do tabuleiro
+    {
+        printf("Coordenadas inválidas!\n");
+        return -1;
+    }
+
+    if (input_i < 2 || input_i > 9 || input_j < 'C' || input_j > 'H') // avisa que o input ultrapassou as bordas
+    {
+        printf("Efeito ultrapassa as bordas do tabuleiro, será apresentado na borda oposta.\n");
+    }
+
+    for (int i = input_i; i < BOARD_SIZE && i < input_i + 3; i++) // monta a habilidade que será impressa
+    {
+        tabuleiro[input_i][input_j]= cruz;
+        tabuleiro[input_i + 1][input_j]= cruz;
+        tabuleiro[input_i + 1][input_j + 1]= cruz;
+        tabuleiro[input_i + 1][input_j + 2]= cruz;
+        tabuleiro[input_i + 1][input_j - 1]= cruz;
+        tabuleiro[input_i + 1][input_j - 2]= cruz;
+        tabuleiro[input_i + 2][input_j]= cruz;
+    }
+}
+int hability_octa(void)
+{
+    char *octa = " 5";
+    int input_i;
+    char input_j;
+    
+    printf("Digite as coordenadas da habilidade:\nLetra (A-J): ");
+    scanf(" %c", &input_j);
+    printf("Número (1-10): ");
+    scanf("%i", &input_i);
+    printf("\n");
+
+    // converte input_j para maiuscula
+    input_j = toupper(input_j) - 'A'; // converte letras em numeros
+    input_i -= 1; // converte 1-10 para 0-9
+
+    if (input_i < 0 || input_i >= BOARD_SIZE || input_j < 0 || input_j >= BOARD_SIZE) // garantir que o input esteja nos limites do tabuleiro
+    {
+        printf("Coordenadas inválidas!\n");
+        return -1;
+    }
+
+    if (input_i == 1 || input_i == 10 || input_j < 'B' || input_j > 'I') // avisa que o input ultrapassou as bordas
+    {
+        printf("Efeito ultrapassa as bordas do tabuleiro, será apresentado na borda oposta.\n");
+    }
+
+
+    for (int i = input_i; i < BOARD_SIZE && i < input_i + 3; i++) // monta a habilidade que será impressa
+    {
+        tabuleiro[input_i][input_j]= octa;
+        tabuleiro[input_i + 1][input_j]= octa;
+        tabuleiro[input_i + 1][input_j + 1]= octa;
+        tabuleiro[input_i + 1][input_j - 1]= octa;
+        tabuleiro[input_i + 2][input_j]= octa;
+    }
 }
